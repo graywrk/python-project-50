@@ -1,2 +1,0 @@
-def gendiff():
-    return True
