@@ -1,6 +1,6 @@
 import pytest
 import os
-from gendiff import core
+from gendiff import generate_diff
 
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -12,4 +12,4 @@ def test_gendiff():
     result_file_path = CURRENT_DIR + "/fixtures/result.txt"
     with open(result_file_path) as result_file:
         result = result_file.read()
-    assert core.generate_diff(file1_path, file2_path) == result
+    assert generate_diff(file1_path, file2_path) == result
