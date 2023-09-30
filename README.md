@@ -6,4 +6,4 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/8f8088d63ebbdefbcf65/test_coverage)](https://codeclimate.com/github/graywrk/python-project-50/test_coverage)
 
 ### Demo:
-[![asciicast](https://asciinema.org/a/nHOQci2YZrAby9uwro7R4A0us.svg)](https://asciinema.org/a/nHOQci2YZrAby9uwro7R4A0us)
+[![asciicast](https://asciinema.org/a/nHOQci2YZrAby9uwro7R4A0us.svg)](https://asciinema.org/a/nHOQci2YZrAby9uwro7R4A0us) 
