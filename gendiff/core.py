@@ -23,29 +23,71 @@ def load_from_file(file_path):
         raise Exception('Unknown file format')
 
 
-def make_diff_string(key, value, prefix="    "):
-    return prefix + str(key) + ": " + str(value) + "\n"
+def make_diff_string(key, value, prefix, level):
+    return "  " * level + prefix + " " + str(key) + ": " + str(value) + "\n"
 
 
-def generate_diff(file_path1, file_path2):
-    dict1 = load_from_file(file_path1)
-    dict2 = load_from_file(file_path2)
+# flake8: noqa: C901
+def stylish(AST, level=1):
+    result = "   " * (level - 1) + "{\n"
 
-    result = "{\n"
+    for key in AST:
+        if AST[key]['type'] == 'UNCHANGED':
+            result += make_diff_string(key, AST[key]['value'], " ", level)
+        elif AST[key]['type'] == 'CHANGED':
+            result += make_diff_string(key, AST[key]['value'], "-", level)
+            result += make_diff_string(key, AST[key]['new_value'], "+", level)
+        elif AST[key]['type'] == 'DELETED':
+            result += make_diff_string(key, AST[key]['value'], "-", level)
+        elif AST[key]['type'] == 'ADDED':
+            result += make_diff_string(key, AST[key]['value'], "+", level)
+        elif AST[key]['type'] == 'NESTED':
+            result += stylish(AST[key]['children'], level + 1)
+        else:
+            raise Exception("Not supported key type")
+    result += "   " * (level - 1) + "}"
+
+    return result
+
+
+def make_ast(dict1, dict2):
+    AST = {}
 
     allkeys = {key for dictionary in [dict1, dict2] for key in dictionary}
     allkeys = sorted(allkeys)
 
     for key in allkeys:
-        if key in dict1 and key in dict2:
-            if dict1[key] == dict2[key]:
-                result += make_diff_string(key, dict1[key])
+        AST[key] = {}
+        if key in dict1:
+            if key in dict2:
+                if isinstance(dict1[key], dict) and \
+                   isinstance(dict2[key], dict):
+                    AST[key]['type'] = 'NESTED'
+                    AST[key]['children'] = make_ast(dict1[key], dict2[key])
+                elif dict1[key] == dict2[key]:
+                    AST[key]['type'] = 'UNCHANGED'
+                    AST[key]['value'] = dict1[key]
+                else:
+                    AST[key]['type'] = 'CHANGED'
+                    AST[key]['value'] = dict1[key]
+                    AST[key]['new_value'] = dict2[key]
             else:
-                result += make_diff_string(key, dict1[key], "  - ")
-                result += make_diff_string(key, dict2[key], "  + ")
-        elif key in dict1:
-            result += make_diff_string(key, dict1[key], "  - ")
-        elif key in dict2:
-            result += make_diff_string(key, dict2[key], "  + ")
-    result += "}"
-    return result
+                AST[key]['type'] = 'DELETED'
+                AST[key]['value'] = dict1[key]
+        else:
+            AST[key]['type'] = 'ADDED'
+            AST[key]['value'] = dict2[key]
+
+    return AST
+
+
+def make_output(AST, formater):
+    return formater(AST)
+
+
+def generate_diff(file_path1, file_path2, formater=stylish):
+    dict1 = load_from_file(file_path1)
+    dict2 = load_from_file(file_path2)
+
+    AST = make_ast(dict1, dict2)
+    return make_output(AST, formater)
