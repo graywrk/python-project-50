@@ -37,8 +37,7 @@ def make_ast(dict1, dict2):
         AST[key] = {'children': {}, 'type': 'UNCHANGED'}
         if key in dict1:
             if key in dict2:
-                if isinstance(dict1[key], dict) and \
-                   isinstance(dict2[key], dict):
+                if isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
                     AST[key]['children'] = make_ast(dict1[key], dict2[key])
                 if dict1[key] == dict2[key]:
                     AST[key]['type'] = 'UNCHANGED'

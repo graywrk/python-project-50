@@ -8,8 +8,7 @@ def normalize_value(value):
         return "null"
     elif isinstance(value, dict):
         return "[complex value]"
-    else:
-        return "'%s'" % (str(value),)
+    return "'%s'" % (str(value),)
 
 
 def format_plain(AST, path=[]): # noqa: max-complexity=10

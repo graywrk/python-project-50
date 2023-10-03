@@ -8,8 +8,7 @@ def normalize_value(value):
         return 'null'
     elif isinstance(value, dict):
         return value
-    else:
-        return str(value)
+    return str(value)
 
 
 def make_indent(level, space_count=4):
