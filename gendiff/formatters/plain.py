@@ -8,6 +8,8 @@ def normalize_value(value):
         return "null"
     elif isinstance(value, dict):
         return "[complex value]"
+    elif value == 0:
+        return '0'
     return "'%s'" % (str(value),)
 
 
