@@ -5,6 +5,7 @@ from gendiff.formatters.plain import format_plain
 from gendiff.formatters.stylish import format_stylish
 from gendiff.formatters.json import format_json
 
+
 def load_from_json(file_path):
     with open(file_path) as file:
         result_dict = json.load(file)
@@ -36,7 +37,8 @@ def make_ast(dict1, dict2):
         AST[key] = {'children': {}, 'type': 'UNCHANGED'}
         if key in dict1:
             if key in dict2:
-                if isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
+                if isinstance(dict1[key], dict) and \
+                   isinstance(dict2[key], dict):
                     AST[key]['children'] = make_ast(dict1[key], dict2[key])
                 if dict1[key] == dict2[key]:
                     AST[key]['type'] = 'UNCHANGED'
@@ -51,7 +53,7 @@ def make_ast(dict1, dict2):
         else:
             AST[key]['type'] = 'ADDED'
             AST[key]['value'] = deepcopy(dict2[key])
-        
+
     return AST
 
 
@@ -70,4 +72,4 @@ def generate_diff(file_path1, file_path2, formatter):
     elif formatter == 'json':
         return make_output(AST, format_json)
     else:
-        raise Exeption('Unknown formatter')
+        raise Exception('Unknown formatter')
