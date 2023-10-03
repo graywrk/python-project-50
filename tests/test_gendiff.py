@@ -43,8 +43,8 @@ def test_gendiff_with_nested_data_plain_output():
 
 
 def test_gendiff_with_nested_data_json_output():
-    file1_path = CURRENT_DIR + "/fixtures/file5.json"
-    file2_path = CURRENT_DIR + "/fixtures/file6.json"
+    file1_path = CURRENT_DIR + "/fixtures/file1.json"
+    file2_path = CURRENT_DIR + "/fixtures/file2.json"
     result_file_path = CURRENT_DIR + "/fixtures/result.json"
     with open(result_file_path) as result_file:
         result = result_file.read()
