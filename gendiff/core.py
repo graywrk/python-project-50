@@ -61,7 +61,7 @@ def make_output(AST, formatter):
     return formatter(AST)
 
 
-def generate_diff(file_path1, file_path2, formatter):
+def generate_diff(file_path1, file_path2, formatter='stylish'):
     dict1 = load_from_file(file_path1)
     dict2 = load_from_file(file_path2)
     AST = make_ast(dict1, dict2)
