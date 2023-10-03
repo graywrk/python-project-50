@@ -1,6 +1,3 @@
-### Hexlet tests and linter status:
-
-
 ### Badges
 [![Workflow](https://github.com/graywrk/python-project-50/actions/workflows/my-check.yml/badge.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/8f8088d63ebbdefbcf65/maintainability)](https://codeclimate.com/github/graywrk/python-project-50/maintainability)
