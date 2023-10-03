@@ -12,7 +12,7 @@ def test_gendiff_json():
     result_file_path = CURRENT_DIR + "/fixtures/result1.txt"
     with open(result_file_path) as result_file:
         result = result_file.read()
-    assert generate_diff(file1_path, file2_path) == result
+    assert generate_diff(file1_path, file2_path, "stylish") == result
 
 
 def test_gendiff_yaml():
@@ -21,7 +21,7 @@ def test_gendiff_yaml():
     result_file_path = CURRENT_DIR + "/fixtures/result1.txt"
     with open(result_file_path) as result_file:
         result = result_file.read()
-    assert generate_diff(file1_path, file2_path) == result
+    assert generate_diff(file1_path, file2_path, "stylish") == result
 
 
 def test_gendiff_with_nested_data():
@@ -30,4 +30,22 @@ def test_gendiff_with_nested_data():
     result_file_path = CURRENT_DIR + "/fixtures/result2.txt"
     with open(result_file_path) as result_file:
         result = result_file.read()
-    assert generate_diff(file1_path, file2_path) == result
+    assert generate_diff(file1_path, file2_path, "stylish") == result
+
+
+def test_gendiff_with_nested_data_plain_output():
+    file1_path = CURRENT_DIR + "/fixtures/file5.json"
+    file2_path = CURRENT_DIR + "/fixtures/file6.json"
+    result_file_path = CURRENT_DIR + "/fixtures/result_plain.txt"
+    with open(result_file_path) as result_file:
+        result = result_file.read()
+    assert generate_diff(file1_path, file2_path, "plain") == result
+
+
+def test_gendiff_with_nested_data_json_output():
+    file1_path = CURRENT_DIR + "/fixtures/file5.json"
+    file2_path = CURRENT_DIR + "/fixtures/file6.json"
+    result_file_path = CURRENT_DIR + "/fixtures/result.json"
+    with open(result_file_path) as result_file:
+        result = result_file.read()
+    assert generate_diff(file1_path, file2_path, "json") == result

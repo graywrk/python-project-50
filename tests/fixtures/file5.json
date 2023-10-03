@@ -1,0 +1,18 @@
+{
+    "common": {
+        "setting3": true,
+        "setting2": 1,
+        "setting6": {
+            "doge": {
+                    "wow": ""
+            }
+        }
+    },
+    "group1": {
+        "baz": "bas",
+        "nest": {
+            "bla": "car"
+        }
+    },
+    "group2": {}
+}

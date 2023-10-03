@@ -1,0 +1,23 @@
+{
+    "common": {
+        "follow": false,
+        "setting3": null,
+        "setting4": "blah blah",
+        "setting5": {
+            "nested": "set"
+        },
+        "setting6": {
+            "doge": {
+                    "wow": "vops"
+            },
+            "ops": "vops"
+        }
+    },
+    "group1": {
+        "baz": "bars",
+        "nest": "str"
+    },
+    "group3": {
+        "nested": "set"
+    }
+}
